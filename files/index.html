@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="videoApp">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS Video Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin: auto;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body ng-controller="VideoController">
+  <div class="video-container">
+    <video id="myVideo" ng-src="{{videoSrc}}" controls playsinline></video>
+  </div>
+  <div class="controls">
+    <button ng-click="playVideo()">Play</button>
+    <button ng-click="pauseVideo()">Pause</button>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script>
+    angular.module('videoApp', [])
+      .controller('VideoController', ['$scope', '$sce', function($scope, $sce) {
+        $scope.videoSrc = $sce.trustAsResourceUrl("file_example_MP4_640_3MG.mp4");
+        const videoElement = document.getElementById("myVideo");
+        $scope.playVideo = function() {
+          videoElement.play();
+        };
+        $scope.pauseVideo = function() {
+          videoElement.pause();
+        };
+      }]);
+  </script>
+</body>
+</html>
